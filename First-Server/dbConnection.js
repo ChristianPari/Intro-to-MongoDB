@@ -7,7 +7,8 @@ function dbConnection() {
     mongoose.connect(mongoURI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useCreateIndex: true
+        useCreateIndex: true,
+        useFindAndModify: false
     });
 
     mongoose.connection.on('open', () => {
