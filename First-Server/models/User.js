@@ -4,16 +4,20 @@ const validator = require('validator'),
         name: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
+            trim: true
         },
         email: {
             type: String,
             required: true,
             unique: true,
+            trim: true,
             validate: value => {
 
                 if (!validator.isEmail(value)) {
+
                     throw new Error('Email is invalid');
+
                 }
 
             }
