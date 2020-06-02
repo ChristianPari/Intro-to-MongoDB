@@ -9,3 +9,12 @@ This repo will contain my first bit of coding while working with MongoDB, goal i
         - Morgan
         - Dotenv
         - Validator
+        
+- First-Server-002
+    - Another go through on using CRUD methods within a server that uses a Atlas DB.
+    - Technology Used:
+        - Mongoose
+        - Express
+        - Nodemon
+        - Morgan
+        - Dotenv
