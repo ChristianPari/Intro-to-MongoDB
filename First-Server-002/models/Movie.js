@@ -60,8 +60,17 @@ const mongoose = require('mongoose'),
         },
 
         inventory: {
-            type: Array,
-            default: []
+            type: Object,
+            default: {
+                available: {
+                    type: Number,
+                    default: 0
+                },
+                rented: {
+                    type: Number,
+                    default: 0
+                }
+            }
         }
 
     });

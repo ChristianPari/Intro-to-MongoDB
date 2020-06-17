@@ -1,0 +1,37 @@
+.allMovies {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movie {
+    margin: 10px;
+    text-align: center;
+    background-image: linear-gradient(lightblue, blue, lightblue);
+    width: 300px;
+    border-radius: 25px;
+    border-width: 15px;
+    border-color: white;
+    border-style: double;
+}
+
+.movie img {
+    border-color: black;
+    border-style: double;
+    background-color: white;
+    border-radius: 10px;
+    border-width: 10px;
+    transition: transform 0.5s;
+}
+
+.movie img:hover {
+    transform: scale(1.02);
+}
+
+.movie button {
+    margin: 3px;
+    padding: 3px;
+    border-radius: 10px;
+    border-width: 3px;
+    background-color: rgba(255, 255, 255, 0);
+    cursor: pointer;
+}

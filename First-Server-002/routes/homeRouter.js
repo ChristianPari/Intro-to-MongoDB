@@ -2,7 +2,28 @@ const express = require('express'),
     router = express.Router(),
     Movie = require('../models/Movie');
 
-router.get('/', (req, res) => {
+router.get('/test', (req, res) => {
+
+    res.render('test', { titleVariable: 'Movie Home Page', subHead: "See Movies" });
+
+});
+
+router.get('/home', async(req, res) => {
+
+    const allMovies = await Movie.find({}),
+        clientMsg = "Available Movies";
+
+    res.render('home', { titleVar: "Movie Rental Home", message: clientMsg, all_movies: allMovies });
+
+});
+
+router.get('/static', (req, res) => {
+
+    res.sendFile(process.cwd() + '/public/homeStatic/old-homePage/home.html');
+
+});
+
+router.get('/movie/all', (req, res) => {
 
     Movie.find({})
         .then(allMovies => {
@@ -32,7 +53,37 @@ router.get('/', (req, res) => {
 
 });
 
-router.get('/available/:available', findAvail, (req, res) => {
+router.get('/movie/:id', (req, res) => {
+
+    Movie.findById(req.params.id)
+        .then(movie => {
+
+            return res.status(200).json({
+
+                status: 200,
+                message: 'All Movies within our Database',
+                movie_data: movie
+
+            });
+
+        })
+        .catch(err => {
+
+            return res.status(500).json({
+
+                status: 500,
+                message: err.message,
+                error: err
+
+            })
+
+        });
+
+
+
+});
+
+router.get('/movie/available/:available', findAvail, (req, res) => {
 
     const movies = req.req_movies;
     let request = req.params.available;
@@ -57,13 +108,13 @@ router.get('/available/:available', findAvail, (req, res) => {
 
 });
 
-router.post('/', async(req, res) => {
+router.post('/movie', async(req, res) => {
 
     try {
 
         const newMovie = new Movie(req.body);
 
-        await newMovie.save();
+        await Movie.create(newMovie);
 
         return res.status(201).json({
 
@@ -87,7 +138,7 @@ router.post('/', async(req, res) => {
 
 });
 
-router.delete('/:movie_id', findMovie, async(req, res) => {
+router.delete('/movie/:movie_id', findMovie, async(req, res) => {
 
     const movie = req.found_movie,
         movieID = req.params.movie_id;
@@ -119,7 +170,7 @@ router.delete('/:movie_id', findMovie, async(req, res) => {
 
 });
 
-router.patch('/:movie_id', findMovie, validPatch, async(req, res) => {
+router.patch('/movie/:movie_id', findMovie, validPatch, async(req, res) => {
 
     const oldMovie = req.found_movie,
         movieID = req.params.movie_id,

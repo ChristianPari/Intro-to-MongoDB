@@ -7,11 +7,14 @@ const express = require('express'),
     port = process.env.PORT || 5000,
     homeRouter = require('./routes/homeRouter');
 
+app.set('view engine', 'pug');
+
 app.use(morgan("dev"));
 app.use(express.json());
 
 dbConnect();
 
+app.use('/', express.static('./public/homeStatic/old-homePage/'));
 app.use('/', homeRouter);
 
 app.listen(port, () => {

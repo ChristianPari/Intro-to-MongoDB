@@ -1,0 +1,39 @@
+html
+    head
+        title= titleVar
+
+        script
+            include ../public/homeStatic/new-homePage/home.js
+
+        style
+            include ../public/homeStatic/new-homePage/home.css
+    
+    body
+        h1= message
+
+        //- div is made without html element name div
+        .allMovies
+            //- created a for each loop from the movieData rendered in the router request
+            each movieData in all_movies
+                if movieData.inventory.available > 0
+                    .movie(id=movieData._id)
+                        h2=movieData.title
+                        h3=movieData.release
+                        img(src=`${movieData.img}`, alt=`${movieData.title}'s image`)
+                        br
+                        a(href=`${movieData.imdb_link}`)= `${movieData.title} ImDb link`
+                        button.deleteBtn Delete From Database
+                        button.getMovieBtn Get Movie Info
+                        button.rentMovieBtn Rent Movie
+                        button.returnMovieBtn Return Movie
+                else
+                    .movie(style="display: none", id=movieData._id)
+                        h2=movieData.title
+                        h3=movieData.release
+                        img(src=`${movieData.img}`, alt=`${movieData.title}'s image`)
+                        br
+                        a(href=`${movieData.imdb_link}`)= `${movieData.title} ImDb link`
+                        button.deleteBtn Delete From Database
+                        button.getMovieBtn Get Movie Info
+                        button.rentMovieBtn Rent Movie
+                        button.returnMovieBtn Return Movie
