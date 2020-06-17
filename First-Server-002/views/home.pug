@@ -22,10 +22,10 @@ html
                         img(src=`${movieData.img}`, alt=`${movieData.title}'s image`)
                         br
                         a(href=`${movieData.imdb_link}`)= `${movieData.title} ImDb link`
-                        button.deleteBtn Delete From Database
-                        button.getMovieBtn Get Movie Info
-                        button.rentMovieBtn Rent Movie
-                        button.returnMovieBtn Return Movie
+                        button.deleteBtns Delete From Database
+                        button.getBtns Get Movie Info
+                        button.rentBtns Rent Movie
+                        button.returnBtns Return Movie
                 else
                     .movie(style="display: none", id=movieData._id)
                         h2=movieData.title
@@ -33,7 +33,7 @@ html
                         img(src=`${movieData.img}`, alt=`${movieData.title}'s image`)
                         br
                         a(href=`${movieData.imdb_link}`)= `${movieData.title} ImDb link`
-                        button.deleteBtn Delete From Database
-                        button.getMovieBtn Get Movie Info
-                        button.rentMovieBtn Rent Movie
-                        button.returnMovieBtn Return Movie
+                        button.deleteBtns Delete From Database
+                        button.getBtns Get Movie Info
+                        button.rentBtns Rent Movie
+                        button.returnBtns Return Movie

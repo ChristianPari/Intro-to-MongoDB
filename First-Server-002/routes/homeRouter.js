@@ -53,15 +53,15 @@ router.get('/movie/all', (req, res) => {
 
 });
 
-router.get('/movie/:id', (req, res) => {
+router.get('/movie/:movie_id', (req, res) => {
 
-    Movie.findById(req.params.id)
+    Movie.findById(req.params.movie_id)
         .then(movie => {
 
             return res.status(200).json({
 
                 status: 200,
-                message: 'All Movies within our Database',
+                message: `Successful GET of movie: '${movie.title}'`,
                 movie_data: movie
 
             });
