@@ -52,15 +52,15 @@ function deleteMovie() {
 
             }
 
-            rs.json()
-                .then(res => {
+            return rs.json()
 
-                    console.log(res);
+        })
+        .then(res => {
 
-                    const movieID = res.deleted_movie._id;
-                    document.getElementById(movieID).remove();
+            console.log(res);
 
-                })
+            const movieID = res.deleted_movie._id;
+            document.getElementById(movieID).remove();
 
         })
         .catch(err => {
@@ -70,3 +70,5 @@ function deleteMovie() {
         });
 
 };
+
+// vscode-fold=1

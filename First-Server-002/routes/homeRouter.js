@@ -11,9 +11,15 @@ router.get('/test', (req, res) => {
 router.get('/home', async(req, res) => {
 
     const allMovies = await Movie.find({}),
-        clientMsg = "Available Movies";
+        clientMsg = "All Movies";
 
     res.render('home', { titleVar: "Movie Rental Home", message: clientMsg, all_movies: allMovies });
+
+});
+
+router.get('/movie/new', async(req, res) => {
+
+    res.render('newMovie');
 
 });
 

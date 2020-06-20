@@ -2,11 +2,6 @@ const mongoose = require('mongoose'),
     validator = require('validator'),
     MovieSchema = new mongoose.Schema({
 
-        available: {
-            type: Boolean,
-            required: true
-        },
-
         title: {
             type: String,
             required: true,
@@ -64,7 +59,7 @@ const mongoose = require('mongoose'),
             default: {
                 available: {
                     type: Number,
-                    default: 0
+                    default: 1
                 },
                 rented: {
                     type: Number,
