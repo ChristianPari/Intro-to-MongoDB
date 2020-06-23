@@ -9,20 +9,25 @@ html
             include ../public/homeStatic/new-homePage/home.css
     
     body
-        h1= message
+        h1= mainHead
 
         //- div is made without html element name div
         .allMovies
             //- created a for each loop from the movieData rendered in the router request
             each movieData in all_movies
                     .movie(id=movieData._id)
-                        h2=movieData.title
-                        h3=movieData.release
-                        img(src=`${movieData.img}`, alt=`${movieData.title}'s image`)
-                        br
-                        a(href=`${movieData.imdb_link}`)= `${movieData.title} ImDb link`
-                        br
-                        button.deleteBtns Delete From Database
-                        button.getBtns Get Movie Info
-                        button.rentBtns Rent Movie
-                        button.returnBtns Return Movie
+                        .displayMovie    
+                            h2=movieData.title
+                            h3=movieData.release
+                            img(src=`${movieData.img}`, alt=`${movieData.title}'s image`)
+                            a(href=`${movieData.imdb_link}`)= `${movieData.title} ImDb link`
+                            button.getBtns Get Movie Info
+                            button.rentBtns Rent Movie
+                        .editMovie
+                            input(type="text", placeholder="Title", name="title")
+                            input(type="number", placeholder="Release Year", name="release")
+                            input(type="url", placeholder="Image Link", name="img")
+                            input(type="url", placeholder="IMDB Link", name="imdb_link", pattern="imdb")
+                        .adminBtns
+                            button.deleteBtns Delete From Database
+                            button.editMovie Edit Movie

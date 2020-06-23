@@ -5,7 +5,8 @@ const express = require('express'),
     spacer = require('./spacer'),
     app = express(),
     port = process.env.PORT || 5000,
-    homeRouter = require('./routes/homeRouter');
+    homeRouter = require('./routes/homeRouter'),
+    movieRouter = require('./routes/movieRouter');
 
 app.set('view engine', 'pug');
 
@@ -16,6 +17,7 @@ dbConnect();
 
 app.use('/', express.static('./public/homeStatic/old-homePage/'));
 app.use('/', homeRouter);
+app.use('/movie', movieRouter);
 
 app.listen(port, () => {
 

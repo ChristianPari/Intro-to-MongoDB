@@ -7,11 +7,15 @@
     margin: 10px;
     text-align: center;
     background-image: linear-gradient(lightblue, blue, lightblue);
-    width: 300px;
+    width: 225px;
     border-radius: 25px;
     border-width: 15px;
     border-color: white;
     border-style: double;
+}
+
+.movie a {
+    color: white;
 }
 
 .movie img {
@@ -34,4 +38,19 @@
     border-width: 3px;
     background-color: rgba(255, 255, 255, 0);
     cursor: pointer;
+}
+
+.displayMovie {
+    display: flex;
+    flex-direction: column;
+}
+
+.editMovie {
+    display: flex;
+    flex-direction: column;
+}
+
+.adminBtns {
+    display: flex;
+    flex-direction: column;
 }
