@@ -1,14 +1,26 @@
 window.onload = () => {
 
+    for (const div of document.getElementsByClassName('editMovie')) {
+
+        div.style.display = 'none';
+
+    }
+
+    setEventListeners();
+
+};
+
+function setEventListeners() {
+
     const getBtns = document.getElementsByClassName('getBtns'),
         deleteBtns = document.getElementsByClassName('deleteBtns'),
-        rentBtns = document.getElementsByClassName('rentBtns'),
-        returnBtns = document.getElementsByClassName('returnBtns');
+        confirmBtns = document.getElementsByClassName('confirmEdits'),
+        editBtns = document.getElementsByClassName('editBtns');
 
     for (const btn of getBtns) { btn.onclick = reqMovieData; }
     for (const btn of deleteBtns) { btn.onclick = deleteMovie; }
-    // for (const btn of rentBtns) { btn.onclick = rentMovie; }
-    // for (const btn of returnBtns) { btn.onclick = returnMovie; }
+    for (const btn of confirmBtns) { btn.onclick = confirmEdit; }
+    for (const btn of editBtns) { btn.onclick = editMovie; }
 
 };
 
@@ -39,7 +51,7 @@ function reqMovieData() {
 
 function deleteMovie() {
 
-    const movieID = this.parentNode.id;
+    const movieID = this.parentNode.parentNode.id;
 
     fetch(`${window.location.origin}/movie/${movieID}`, {
             method: 'DELETE'
@@ -48,7 +60,7 @@ function deleteMovie() {
 
             if (rs.status !== 200) {
 
-                return console.log(`Something went wrong\nStatus Code: ${rs.status}\nrsponse: ${rs.statusText}`);
+                return console.log({ status: rs.status, message: rs.statusText });
 
             }
 
@@ -68,6 +80,58 @@ function deleteMovie() {
             console.log('Something went wrong, error:\n', err);
 
         });
+
+};
+
+function editMovie() {
+
+    let editDiv = this.parentNode.parentNode.childNodes[1],
+        displayDiv = this.parentNode.parentNode.childNodes[0];
+
+    editDiv.style.display = editDiv.style.display == 'none' ? 'flex' : 'none';
+    displayDiv.style.display = displayDiv.style.display == 'none' ? 'flex' : 'none';
+
+};
+
+async function confirmEdit() {
+
+    const formElms = document.getElementById('form').childNodes,
+        movieID = this.parentNode.parentNode.id,
+        reqBody = {};
+
+    formElms.forEach(input => {
+
+        if (input.value != '') {
+
+            reqBody[input.name] = input.value;
+
+        }
+
+    });
+
+    if (Object.keys(reqBody).length < 1) { return alert("Must have at least one field filled out"); };
+
+    const endpoint = `${window.location.origin}/movie/${movieID}`,
+        reqObj = {
+
+            headers: {
+
+                'Access-Control-Allow-Origin': '*',
+                Accept: 'application/json',
+                'content-type': 'application/json'
+
+            },
+            method: 'PATCH',
+            body: JSON.stringify(reqBody)
+
+        };
+
+    await fetch(endpoint, reqObj)
+        .then(rs => { return rs.json(); })
+        .then(res => { console.log(res); })
+        .catch(err => { console.log(err); })
+
+    window.location.reload(true);
 
 };
 

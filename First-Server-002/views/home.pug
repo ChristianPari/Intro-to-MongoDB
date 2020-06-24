@@ -24,10 +24,12 @@ html
                             button.getBtns Get Movie Info
                             button.rentBtns Rent Movie
                         .editMovie
-                            input(type="text", placeholder="Title", name="title")
-                            input(type="number", placeholder="Release Year", name="release")
-                            input(type="url", placeholder="Image Link", name="img")
-                            input(type="url", placeholder="IMDB Link", name="imdb_link", pattern="imdb")
+                            #form    
+                                input(type="text", placeholder="Title", name="title")
+                                input(type="number", placeholder="Release Year", name="release")
+                                input(type="url", placeholder="Image Link", name="img")
+                                input(type="url", placeholder="IMDB Link", name="imdb_link", pattern="imdb")
+                            button.confirmEdits Confirm
                         .adminBtns
                             button.deleteBtns Delete From Database
-                            button.editMovie Edit Movie
+                            button.editBtns Edit Movie
