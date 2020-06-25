@@ -95,19 +95,80 @@ function editMovie() {
 
 async function confirmEdit() {
 
-    const formElms = document.getElementById('form').childNodes,
+    const formElms = this.parentNode.childNodes[0],
         movieID = this.parentNode.parentNode.id,
-        reqBody = {};
+        reqBody = {},
+        errIn = [],
+        imgRegExp = /.jpg/g,
+        urlRegExp = /imdb/g;
 
-    formElms.forEach(input => {
+    for (const input of formElms) {
 
         if (input.value != '') {
 
-            reqBody[input.name] = input.value;
+            switch (input.name) {
+
+                case 'title':
+
+                    reqBody[input.name] = input.value.trim().replace(/\s+/g, '');
+
+                    break;
+
+                case 'release':
+
+                    if (input.validationMessage != '') {
+
+                        errIn.push(input.name);
+
+                    } else {
+
+                        reqBody[input.name] = input.value;
+
+                    }
+
+                    break;
+
+                case 'img':
+
+                    if (!imgRegExp.test(input.value)) {
+
+                        errIn.push(input.name);
+
+                    } else {
+
+                        reqBody[input.name] = input.value.trim().replace(/\s+/g, '');
+
+                    }
+
+                    break;
+
+                case 'imdb_link':
+
+                    if (input.validationMessage != '' || !urlRegExp.test(input.value)) {
+
+                        errIn.push(input.name);
+
+                    } else {
+
+                        reqBody[input.name] = input.value.trim().replace(/\s+/g, '');
+
+                    }
+
+                    break;
+
+            }
 
         }
 
-    });
+    };
+
+    if (errIn.length != 0) {
+
+        const errStr = errIn.join(', ');
+
+        return alert(`Following fields need fixing: ${errStr}`);
+
+    }
 
     if (Object.keys(reqBody).length < 1) { return alert("Must have at least one field filled out"); };
 
@@ -131,7 +192,9 @@ async function confirmEdit() {
         .then(res => { console.log(res); })
         .catch(err => { console.log(err); })
 
-    window.location.reload(true);
+    const refresh = confirm("Do you wish to refresh the page?");
+
+    if (refresh == true) { window.location.reload(true); };
 
 };
 

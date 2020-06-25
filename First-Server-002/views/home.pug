@@ -1,35 +1,38 @@
 html
-    head
-        title= titleVar
+  head
+    title= titleVar
 
-        script
-            include ../public/homeStatic/new-homePage/home.js
+    script
+      include ../public/homeStatic/new-homePage/home.js
 
-        style
-            include ../public/homeStatic/new-homePage/home.css
+    style
+      include ../public/homeStatic/new-homePage/home.css
     
     body
-        h1= mainHead
 
-        //- div is made without html element name div
-        .allMovies
-            //- created a for each loop from the movieData rendered in the router request
-            each movieData in all_movies
-                    .movie(id=movieData._id)
-                        .displayMovie    
-                            h2=movieData.title
-                            h3=movieData.release
-                            img(src=`${movieData.img}`, alt=`${movieData.title}'s image`)
-                            a(href=`${movieData.imdb_link}`)= `${movieData.title} ImDb link`
-                            button.getBtns Get Movie Info
-                            button.rentBtns Rent Movie
-                        .editMovie
-                            #form    
-                                input(type="text", placeholder="Title", name="title")
-                                input(type="number", placeholder="Release Year", name="release")
-                                input(type="url", placeholder="Image Link", name="img")
-                                input(type="url", placeholder="IMDB Link", name="imdb_link", pattern="imdb")
-                            button.confirmEdits Confirm
-                        .adminBtns
-                            button.deleteBtns Delete From Database
-                            button.editBtns Edit Movie
+      -const curYear = new Date().getFullYear();
+
+      h1= mainHead
+
+      //- div is made without html element name div
+      .allMovies
+        //- created a for each loop from the movieData rendered in the router request
+        each movieData in all_movies
+          .movie(id=movieData._id)
+            .displayMovie    
+              h2=movieData.title
+              h3=movieData.release
+              img(src=`${movieData.img}`, alt=`${movieData.title}'s image`)
+              a(href=`${movieData.imdb_link}`)= `${movieData.title} ImDb link`
+              button.getBtns Get Movie Info
+              button.rentBtns Rent Movie
+                .editMovie
+                  form.form
+                    input(type="text", placeholder="Title", name="title")
+                    input(type="number", placeholder="Release Year", name="release", min=1900, max=curYear)
+                    input(type="text", placeholder="Image Link", name="img")
+                    input(type="url", placeholder="IMDB Link", name="imdb_link")
+                  button.confirmEdits Confirm
+                .adminBtns
+                    button.deleteBtns Delete From Database
+                    button.editBtns Edit Movie
