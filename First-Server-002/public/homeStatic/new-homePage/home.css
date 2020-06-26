@@ -11,7 +11,8 @@
     height: 400px;
     overflow-y: scroll;
     scrollbar-width: thin;
-    border-radius: 25px;
+    scrollbar-color: rgba(0, 0, 0, 0.258) rgba(255, 255, 255, 0);
+    border-radius: 15px;
     border-width: 15px;
     border-color: white;
     border-style: double;
@@ -69,10 +70,16 @@
     flex-direction: column;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+}
+
 input {
     text-align: center;
     border: none;
-    border-radius: 10px;
+    border-radius: 3px;
+    padding: 2px;
     margin-top: 2px;
     margin-bottom: 2px;
 }

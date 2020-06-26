@@ -6,6 +6,12 @@ window.onload = () => {
 
     }
 
+    for (const input of document.getElementsByTagName('input')) {
+
+        input.value = '';
+
+    }
+
     setEventListeners();
 
 };
@@ -91,9 +97,11 @@ function editMovie() {
     editDiv.style.display = editDiv.style.display == 'none' ? 'flex' : 'none';
     displayDiv.style.display = displayDiv.style.display == 'none' ? 'flex' : 'none';
 
+    this.innerText = this.innerText == "Edit Movie" ? "Cancel Edit" : "Edit Movie";
+
 };
 
-async function confirmEdit() {
+function confirmEdit() {
 
     const formElms = this.parentNode.childNodes[0],
         movieID = this.parentNode.parentNode.id,
@@ -110,7 +118,7 @@ async function confirmEdit() {
 
                 case 'title':
 
-                    reqBody[input.name] = input.value.trim().replace(/\s+/g, '');
+                    reqBody[input.name] = input.value.trim().replace(/\s+/g, ' ');
 
                     break;
 
@@ -118,7 +126,8 @@ async function confirmEdit() {
 
                     if (input.validationMessage != '') {
 
-                        errIn.push(input.name);
+                        console.log('release');
+                        errIn.push(`${input.name}: ${input.validationMessage}`);
 
                     } else {
 
@@ -132,11 +141,12 @@ async function confirmEdit() {
 
                     if (!imgRegExp.test(input.value)) {
 
-                        errIn.push(input.name);
+                        console.log('img');
+                        errIn.push(`Img: field must contain '.jpg' to be valid`);
 
                     } else {
 
-                        reqBody[input.name] = input.value.trim().replace(/\s+/g, '');
+                        reqBody[input.name] = input.value.trim().replace(/\s+/g, ' ');
 
                     }
 
@@ -146,13 +156,45 @@ async function confirmEdit() {
 
                     if (input.validationMessage != '' || !urlRegExp.test(input.value)) {
 
-                        errIn.push(input.name);
+                        console.log('imdb_link');
+                        errIn.push(input.validationMessage);
 
                     } else {
 
-                        reqBody[input.name] = input.value.trim().replace(/\s+/g, '');
+                        reqBody[input.name] = input.value.trim().replace(/\s+/g, ' ');
 
                     }
+
+                    break;
+
+                case 'available':
+
+                    // if (input.validationMessage != '') {
+
+                    //     console.log('available');
+                    //     errIn.push(input.validationMessage);
+
+                    // } else {
+
+                    //     reqBody[input.name] = Number(input.value);
+
+                    // }
+
+                    break;
+
+                case 'rented':
+
+                    console.log(input.validationMessage);
+                    // if (input.validationMessage != '') {
+
+                    //     console.log('rented');
+                    //     errIn.push(input.validationMessage);
+
+                    // } else {
+
+                    //     reqBody[input.name] = Number(input.value);
+
+                    // }
 
                     break;
 
@@ -170,32 +212,42 @@ async function confirmEdit() {
 
     }
 
-    if (Object.keys(reqBody).length < 1) { return alert("Must have at least one field filled out"); };
+    // if (Object.keys(reqBody).length < 1) { return alert("Must have at least one field filled out"); };
 
-    const endpoint = `${window.location.origin}/movie/${movieID}`,
-        reqObj = {
+    // const endpoint = `${window.location.origin}/movie/${movieID}`,
+    //     reqObj = {
 
-            headers: {
+    //         headers: {
 
-                'Access-Control-Allow-Origin': '*',
-                Accept: 'application/json',
-                'content-type': 'application/json'
+    //             'Access-Control-Allow-Origin': '*',
+    //             Accept: 'application/json',
+    //             'content-type': 'application/json'
 
-            },
-            method: 'PATCH',
-            body: JSON.stringify(reqBody)
+    //         },
+    //         method: 'PATCH',
+    //         body: JSON.stringify(reqBody)
 
-        };
+    //     };
 
-    await fetch(endpoint, reqObj)
-        .then(rs => { return rs.json(); })
-        .then(res => { console.log(res); })
-        .catch(err => { console.log(err); })
+    // fetch(endpoint, reqObj)
+    //     .then(rs => { return rs.json(); })
+    //     .then(res => { console.log(res); })
+    //     .catch(err => { console.log(err); })
 
-    const refresh = confirm("Do you wish to refresh the page?");
+    // const refresh = confirm("Do you wish to refresh the page?");
 
-    if (refresh == true) { window.location.reload(true); };
+    // if (refresh == true) { window.location.reload(true); };
+
+    // refreshMovie({ id: movieID, data: reqBody });
 
 };
+
+// function refreshMovie({ id, data }) {
+
+//     const childElms = document.getElementById(id).childNodes[0].childNodes;
+
+//     for
+
+// };
 
 // vscode-fold=1

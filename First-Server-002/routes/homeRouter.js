@@ -13,9 +13,9 @@ router.get('/mrental', async(req, res) => {
 
     // expected query props: 'head, title'
     const { head, title } = req.query,
-        allMovies = await Movie.find({});
+        availMovies = await Movie.find({ 'inventory.available': { $gte: 1 } });
 
-    res.render('home', { titleVar: title || 'Movies Home', mainHead: head || 'All our Movies', all_movies: allMovies });
+    res.render('home', { titleVar: title || 'Movies Home', mainHead: head || 'All our Movies', all_movies: availMovies });
 
 });
 
